@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br/>
+    <div class="card">
+        <div class="card-header">
+            Subir ficheros
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Seleccione debajo primero el tipo de Base de datos que va a subir, de hacerlo
+                incorrectamente el sistema va a dar error.</h5>
+            <div class="container">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="general">
+                    <label class="form-check-label" for="general">
+                        GENERAL
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="suma">
+                    <label class="form-check-label" for="suma">
+                        SUMA
+                    </label>
+                </div>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="xlsfile">
+                <button class="btn btn-primary" type="submit">Subir</button>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

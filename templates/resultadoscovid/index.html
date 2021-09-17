@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Resultados</h1>
+    <table class="table" id="covidresult">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Sexo</th>
+            <th scope="col">CI</th>
+            <th scope="col">Municipio</th>
+            <th scope="col">Fecha Toma de Muestra</th>
+            <th scope="col">Resultado</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for paciente in object_list %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ paciente.nombre }}</td>
+                <td>{{ paciente.edad }}</td>
+                <td>{{ paciente.sexo }}</td>
+                <td>{{ paciente.ci }}</td>
+                <td>{{ paciente.municipio }}</td>
+                <td>{{ paciente.toma_muestra }}</td>
+                {% if paciente.resultado == 'POSITIVO' %}
+                    <td><span class="badge bg-danger">{{ paciente.resultado|upper }}</span></td>
+                {% elif paciente.resultado == 'A CONFIRMAR' %}
+                    <td><span class="badge bg-warning text-dark">{{ paciente.resultado|upper }}</span></td>
+                {% else %}
+                    <td><span class="badge bg-success">{{ paciente.resultado|upper }}</span></td>
+                {% endif %}
+
+                <td><a class="btn btn-primary btn-sm" href="#">Detalles</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block extrajs %}
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+            integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#covidresult').DataTable();
+        });
+    </script>
+{% endblock %}
